@@ -5,6 +5,8 @@
  */
 package agenciadeviajes;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author coste
@@ -31,7 +33,7 @@ public class EjercicioTrece extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         txtP = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        txtD = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         lblC = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
@@ -48,6 +50,11 @@ public class EjercicioTrece extends javax.swing.JFrame {
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtP.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        txtP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPKeyTyped(evt);
+            }
+        });
         jPanel2.add(txtP, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 27, 60, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 140, 60));
@@ -55,8 +62,13 @@ public class EjercicioTrece extends javax.swing.JFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cantidad de días", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 0, 12))); // NOI18N
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTextField1.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        jPanel3.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 27, 60, -1));
+        txtD.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        txtD.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDKeyTyped(evt);
+            }
+        });
+        jPanel3.add(txtD, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 27, 60, -1));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 140, 60));
 
@@ -83,6 +95,11 @@ public class EjercicioTrece extends javax.swing.JFrame {
 
         cmdR.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         cmdR.setText("Resolver");
+        cmdR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdRActionPerformed(evt);
+            }
+        });
         jPanel5.add(cmdR, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
 
         jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 230, 70));
@@ -104,7 +121,61 @@ public class EjercicioTrece extends javax.swing.JFrame {
     private void cmdBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdBActionPerformed
         // TODO add your handling code here:
         txtP.setText("");
+        txtD.setText("");
+        lblC.setText("");
+        txtP.requestFocusInWindow();
     }//GEN-LAST:event_cmdBActionPerformed
+
+    private void txtPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+
+        if (!Character.isDigit(c)) {
+            getToolkit().beep();
+
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtPKeyTyped
+
+    private void txtDKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+
+        if (!Character.isDigit(c)) {
+            getToolkit().beep();
+
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtDKeyTyped
+
+    private void cmdRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdRActionPerformed
+        // TODO add your handling code here:
+        String c;
+        double d, p, m, s, l;
+        lblC.setText("");
+        if (txtD.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Digite el número de días", "Error", JOptionPane.ERROR_MESSAGE);
+            txtD.requestFocusInWindow();
+        } else if (txtP.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Digite el número de personas", "Error", JOptionPane.ERROR_MESSAGE);
+            txtP.requestFocusInWindow();
+        } else {
+            p = Double.parseDouble(txtP.getText());
+            d = Double.parseDouble(txtD.getText());
+            if (p == 0) {
+                JOptionPane.showMessageDialog(this, "No se puede colocar 0", "Error", JOptionPane.ERROR_MESSAGE);
+                txtP.requestFocusInWindow();
+            } else if (d == 0) {
+                JOptionPane.showMessageDialog(this, "No se puede colocar 0", "Error", JOptionPane.ERROR_MESSAGE);
+                txtD.requestFocusInWindow();
+            } else {
+                m = (p * d * 25000);
+                s = (m * 12) / 100;
+                l = m + s;
+                c = String.valueOf(l);
+                lblC.setText(" $ " + c);
+            }
+    }//GEN-LAST:event_cmdRActionPerformed
 
     /**
      * @param args the command line arguments
@@ -149,8 +220,8 @@ public class EjercicioTrece extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblC;
+    private javax.swing.JTextField txtD;
     private javax.swing.JTextField txtP;
     // End of variables declaration//GEN-END:variables
 }
